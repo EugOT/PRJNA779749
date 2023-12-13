@@ -1,0 +1,52 @@
+  |                                 |                         |   0%  |                                 |                         |   2%                                               |                                 |.                        |   3% (seed-set-by-workflowr)                       |                                 |.                        |   5%                                               |                                 |..                       |   6% (setup)                                       |                                 |..                       |   8%                                               |                                 |..                       |  10% (params)                                    [1] "Start: 2023-03-08 10:11:53"
+[1] "Stop: 2023-03-08 10:11:53"
+Time difference of 0.02874279 secs
+  |                                 |...                      |  11%                                               |                                 |...                      |  13% (load)                                      [1] "Start: 2023-03-08 10:11:53"
+[1] "Stop: 2023-03-08 10:13:14"
+Time difference of 1.342579 mins
+  |                                 |....                     |  14%                                               |                                 |....                     |  16% (pl-vln-qc)                                 [1] "Start: 2023-03-08 10:13:14"
+[1] "Stop: 2023-03-08 10:13:34"
+Time difference of 20.13659 secs
+  |                                 |....                     |  17%                                               |                                 |.....                    |  19% (pl-scatter-qc)                             [1] "Start: 2023-03-08 10:13:34"
+[1] "Stop: 2023-03-08 10:13:52"
+Time difference of 18.73864 secs
+  |                                 |.....                    |  21%                                               |                                 |......                   |  22% (pl-scatter-qc-comb-mito)                   [1] "Start: 2023-03-08 10:13:52"
+[1] "Stop: 2023-03-08 10:14:01"
+Time difference of 8.257531 secs
+  |                                 |......                   |  24%                                               |                                 |......                   |  25% (pl-scatter-qc-comb-ribo)                   [1] "Start: 2023-03-08 10:14:01"
+[1] "Stop: 2023-03-08 10:14:09"
+Time difference of 8.092071 secs
+  |                                 |.......                  |  27%                                               |                                 |.......                  |  29% (pl-scatter-qc-comb-complexity)             [1] "Start: 2023-03-08 10:14:09"
+[1] "Stop: 2023-03-08 10:14:17"
+Time difference of 8.224185 secs
+  |                                 |........                 |  30%                                               |                                 |........                 |  32% (pl-scatter-doublets-log-prob)              [1] "Start: 2023-03-08 10:14:17"
+[1] "Stop: 2023-03-08 10:14:26"
+Time difference of 8.645858 secs
+  |                                 |........                 |  33%                                               |                                 |.........                |  35% (pl-scatter-qc-comb-doublets)               [1] "Start: 2023-03-08 10:14:26"
+[1] "Stop: 2023-03-08 10:14:34"
+Time difference of 8.080076 secs
+  |                                 |.........                |  37%                                               |                                 |..........               |  38% (unnamed-chunk-1)                           [1] "Start: 2023-03-08 10:14:34"
+[1] "Stop: 2023-03-08 10:14:34"
+Time difference of 0.2815714 secs
+  |                                 |..........               |  40%                                               |                                 |..........               |  41% (pl-scatter-doublets-log-prob-qc-categories)[1] "Start: 2023-03-08 10:14:34"
+[1] "Stop: 2023-03-08 10:14:49"
+Time difference of 15.18608 secs
+  |                                 |...........              |  43%                                               |                                 |...........              |  44% (pl-init-dr-hvg)                            [1] "Start: 2023-03-08 10:14:49"
+[1] "Stop: 2023-03-08 10:19:19"
+Time difference of 4.496312 mins
+  |                                 |............             |  46%                                               |                                 |............             |  48% (pl-init-dr-pca-genes)                      [1] "Start: 2023-03-08 10:19:19"
+[1] "Stop: 2023-03-08 10:21:38"
+Time difference of 2.321649 mins
+  |                                 |............             |  49%                                               |                                 |.............            |  51% (update-gene-lists-rna)                     [1] "Start: 2023-03-08 10:21:38"
+[1] "Stop: 2023-03-08 10:21:39"
+Time difference of 0.2840481 secs
+  |                                 |.............            |  52%                                               |                                 |.............            |  54% (pl-init-dr-pca-heatmap)                    [1] "Start: 2023-03-08 10:21:39"
+[1] "Stop: 2023-03-08 10:21:39"
+Time difference of 0.7948682 secs
+  |                                 |..............           |  56%                                               |                                 |..............           |  57% (pl-init-dr-pca-embedding)                  [1] "Start: 2023-03-08 10:21:39"
+[1] "Stop: 2023-03-08 10:21:44"
+Time difference of 4.487695 secs
+  |                                 |...............          |  59%                                               |                                 |...............          |  60% (pl-init-dr-pca-elbow)                      [1] "Start: 2023-03-08 10:21:44"
+[1] "Stop: 2023-03-08 10:21:44"
+Time difference of 0.320601 secs
+  |                                 |...............          |  62%                                               |                                 |................         |  63% (pl-init-dr-pca-jackstraw)                  [1] "Start: 2023-03-08 10:21:44"

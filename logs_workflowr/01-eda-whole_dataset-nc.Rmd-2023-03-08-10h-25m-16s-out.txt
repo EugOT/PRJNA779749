@@ -1,0 +1,264 @@
+  |                                   |                           |   0%  |                                   |..                         |   8%                                             |                                   |....                       |  15% (seed-set-by-workflowr)                     |                                   |......                     |  23%                                             |                                   |........                   |  31% (setup)                                     |                                   |..........                 |  38%                                             |                                   |............               |  46% (params)                                  [1] "Start: 2023-03-08 10:25:29"
+[1] "Stop: 2023-03-08 10:25:29"
+Time difference of 0.02720284 secs
+  |                                   |...............            |  54%                                             |                                   |.................          |  62% (parent-chunk-name)                       [1] "Start: 2023-03-08 10:25:29"
+[1] "Stop: 2023-03-08 10:25:29"
+Time difference of 0.007036209 secs
+  |                                   |...................        |  69%                                             |                                 |                         |   0%  |                                 |                         |   1%                                              (load)                                      [1] "Start: 2023-03-08 10:25:29"
+[1] "Stop: 2023-03-08 10:26:50"
+Time difference of 1.346689 mins
+  |                                 |                         |   2%                                               |                                 |.                        |   2% (pl-vln-qc)                                 [1] "Start: 2023-03-08 10:26:50"
+[1] "Stop: 2023-03-08 10:27:10"
+Time difference of 20.10687 secs
+  |                                 |.                        |   3%                                               |                                 |.                        |   4% (pl-scatter-qc)                             [1] "Start: 2023-03-08 10:27:10"
+[1] "Stop: 2023-03-08 10:27:29"
+Time difference of 18.65927 secs
+                                               |                                 |.                        |   5% (pl-scatter-qc-comb-mito)                   [1] "Start: 2023-03-08 10:27:29"
+[1] "Stop: 2023-03-08 10:27:37"
+Time difference of 8.281579 secs
+                                               |                                 |.                        |   6% (pl-scatter-qc-comb-ribo)                   [1] "Start: 2023-03-08 10:27:37"
+[1] "Stop: 2023-03-08 10:27:45"
+Time difference of 8.181946 secs
+  |                                 |..                       |   7%                                              (pl-scatter-qc-comb-complexity)             [1] "Start: 2023-03-08 10:27:45"
+[1] "Stop: 2023-03-08 10:27:54"
+Time difference of 8.165308 secs
+  |                                 |..                       |   8%                                              (pl-scatter-doublets-log-prob)              [1] "Start: 2023-03-08 10:27:54"
+[1] "Stop: 2023-03-08 10:28:02"
+Time difference of 8.817764 secs
+  |                                 |..                       |   9%                                               |                                 |..                       |  10% (pl-scatter-qc-comb-doublets)               [1] "Start: 2023-03-08 10:28:02"
+[1] "Stop: 2023-03-08 10:28:10"
+Time difference of 8.09458 secs
+  |                                 |...                      |  10%                                               |                                 |...                      |  11% (unnamed-chunk-1)                           [1] "Start: 2023-03-08 10:28:10"
+[1] "Stop: 2023-03-08 10:28:11"
+Time difference of 0.2642615 secs
+                                               |                                 |...                      |  12% (pl-scatter-doublets-log-prob-qc-categories)[1] "Start: 2023-03-08 10:28:11"
+[1] "Stop: 2023-03-08 10:28:25"
+Time difference of 14.48262 secs
+  |                                 |...                      |  13%                                              (pl-init-dr-hvg)                            [1] "Start: 2023-03-08 10:28:25"
+[1] "Stop: 2023-03-08 10:32:49"
+Time difference of 4.393158 mins
+  |                                 |...                      |  14%                                               |                                 |....                     |  14% (pl-init-dr-pca-genes)                      [1] "Start: 2023-03-08 10:32:49"
+[1] "Stop: 2023-03-08 10:35:04"
+Time difference of 2.256279 mins
+  |                                 |....                     |  15%                                               |                                 |....                     |  16% (update-gene-lists-rna)                     [1] "Start: 2023-03-08 10:35:04"
+[1] "Stop: 2023-03-08 10:35:04"
+Time difference of 0.2194836 secs
+                                               |                                 |....                     |  17% (pl-init-dr-pca-heatmap)                    [1] "Start: 2023-03-08 10:35:04"
+[1] "Stop: 2023-03-08 10:35:06"
+Time difference of 1.042283 secs
+                                               |                                 |....                     |  18% (pl-init-dr-pca-embedding)                  [1] "Start: 2023-03-08 10:35:06"
+[1] "Stop: 2023-03-08 10:35:10"
+Time difference of 4.565825 secs
+  |                                 |.....                    |  19%                                              (pl-init-dr-pca-elbow)                      [1] "Start: 2023-03-08 10:35:10"
+[1] "Stop: 2023-03-08 10:35:11"
+Time difference of 0.4373496 secs
+  |                                 |.....                    |  20%                                              (pl-init-dr-pca-jackstraw)                  [1] "Start: 2023-03-08 10:35:11"
+[1] "Stop: 2023-03-08 10:41:35"
+Time difference of 6.411992 mins
+  |                                 |.....                    |  21%                                               |                                 |.....                    |  22% (pl-init-dr)                                [1] "Start: 2023-03-08 10:41:35"
+[1] "Stop: 2023-03-08 10:41:35"
+Time difference of 0.06102586 secs
+  |                                 |......                   |  22%                                               |                                 |......                   |  23% (pl-init-dr-umap)                           [1] "Start: 2023-03-08 10:41:35"
+[1] "Stop: 2023-03-08 10:45:50"
+Time difference of 4.236918 mins
+                                               |                                 |......                   |  24% (pl-init-dr-resolution)                     [1] "Start: 2023-03-08 10:45:50"
+[1] "Stop: 2023-03-08 10:48:10"
+Time difference of 2.341068 mins
+  |                                 |......                   |  25%                                              (pl-init-dr-clustree)                       [1] "Start: 2023-03-08 10:48:10"
+[1] "Stop: 2023-03-08 10:55:07"
+Time difference of 6.944231 mins
+  |                                 |......                   |  26%                                               |                                 |.......                  |  26% (init-clustree-stability)                   [1] "Start: 2023-03-08 10:55:07"
+[1] "Stop: 2023-03-08 10:55:27"
+Time difference of 20.61201 secs
+  |                                 |.......                  |  27%                                               |                                 |.......                  |  28% (init-clustree-genes)                       [1] "Start: 2023-03-08 10:55:27"
+[1] "Stop: 2023-03-08 11:02:34"
+Time difference of 17.54405 secs
+                                               |                                 |.......                  |  29% (pl-mrtree-init-tree)                       [1] "Start: 2023-03-08 11:02:34"
+[1] "Stop: 2023-03-08 11:11:22"
+Time difference of 8.794951 mins
+                                               |                                 |.......                  |  30% (pl-mrtree-init-amri)                       [1] "Start: 2023-03-08 11:11:22"
+[1] "Stop: 2023-03-08 11:11:25"
+Time difference of 3.198256 secs
+  |                                 |........                 |  31%                                              (pl-mrtree-init-stability)                  [1] "Start: 2023-03-08 11:11:25"
+[1] "Stop: 2023-03-08 11:11:26"
+Time difference of 0.7019622 secs
+  |                                 |........                 |  32%                                              (pl-mrtree-init-select)                     [1] "Start: 2023-03-08 11:11:26"
+[1] "Stop: 2023-03-08 11:11:26"
+Time difference of 0.2559729 secs
+  |                                 |........                 |  33%                                               |                                 |........                 |  34% (pl-vln-qc-init-mito)                       [1] "Start: 2023-03-08 11:11:26"
+[1] "Stop: 2023-03-08 11:11:31"
+Time difference of 5.207519 secs
+  |                                 |.........                |  34%                                               |                                 |.........                |  35% (pl-vln-qc-init-ribo)                       [1] "Start: 2023-03-08 11:11:31"
+[1] "Stop: 2023-03-08 11:11:36"
+Time difference of 4.960262 secs
+                                               |                                 |.........                |  36% (pl-umap-clusters)                          [1] "Start: 2023-03-08 11:11:36"
+[1] "Stop: 2023-03-08 11:11:48"
+Time difference of 12.0348 secs
+  |                                 |.........                |  37%                                              (pl-umap-qc-mito)                           [1] "Start: 2023-03-08 11:11:48"
+[1] "Stop: 2023-03-08 11:11:53"
+Time difference of 4.837851 secs
+  |                                 |.........                |  38%                                               |                                 |..........               |  38% (pl-umap-qc-mito-subset)                    [1] "Start: 2023-03-08 11:11:53"
+[1] "Stop: 2023-03-08 11:11:58"
+Time difference of 4.861729 secs
+  |                                 |..........               |  39%                                               |                                 |..........               |  40% (pl-umap-qc-ngenes)                         [1] "Start: 2023-03-08 11:11:58"
+[1] "Stop: 2023-03-08 11:12:03"
+Time difference of 4.894735 secs
+                                               |                                 |..........               |  41% (pl-umap-qc-ngenes-subset)                  [1] "Start: 2023-03-08 11:12:03"
+[1] "Stop: 2023-03-08 11:12:07"
+Time difference of 4.736001 secs
+                                               |                                 |..........               |  42% (pl-umap-qc-doublets)                       [1] "Start: 2023-03-08 11:12:07"
+[1] "Stop: 2023-03-08 11:12:12"
+Time difference of 4.778268 secs
+  |                                 |...........              |  43%                                              (unnamed-chunk-2)                           [1] "Start: 2023-03-08 11:12:12"
+[1] "Stop: 2023-03-08 11:12:18"
+Time difference of 6.072615 secs
+  |                                 |...........              |  44%                                              (unnamed-chunk-3)                           [1] "Start: 2023-03-08 11:12:18"
+[1] "Stop: 2023-03-08 11:12:25"
+Time difference of 6.784884 secs
+  |                                 |...........              |  45%                                               |                                 |...........              |  46% (unnamed-chunk-4)                           [1] "Start: 2023-03-08 11:12:25"
+[1] "Stop: 2023-03-08 11:12:37"
+Time difference of 12.4802 secs
+  |                                 |............             |  46%                                               |                                 |............             |  47% (pl-vln-qc-subset)                          [1] "Start: 2023-03-08 11:12:37"
+[1] "Stop: 2023-03-08 11:12:55"
+Time difference of 17.04466 secs
+                                               |                                 |............             |  48% (unnamed-chunk-5)                           [1] "Start: 2023-03-08 11:12:55"
+[1] "Stop: 2023-03-08 11:13:00"
+Time difference of 4.98642 secs
+  |                                 |............             |  49%                                              (unnamed-chunk-6)                           [1] "Start: 2023-03-08 11:13:00"
+[1] "Stop: 2023-03-08 11:13:05"
+Time difference of 5.312292 secs
+  |                                 |............             |  50%                                               |                                 |.............            |  50% (unnamed-chunk-7)                           [1] "Start: 2023-03-08 11:13:05"
+[1] "Stop: 2023-03-08 11:13:08"
+Time difference of 2.935964 secs
+  |                                 |.............            |  51%                                              (unnamed-chunk-8)                           [1] "Start: 2023-03-08 11:13:08"
+[1] "Stop: 2023-03-08 11:13:13"
+Time difference of 5.1392 secs
+  |                                 |.............            |  52%                                               |                                 |.............            |  53% (unnamed-chunk-9)                           [1] "Start: 2023-03-08 11:13:13"
+[1] "Stop: 2023-03-08 11:13:16"
+Time difference of 2.860379 secs
+                                               |                                 |.............            |  54% (unnamed-chunk-10)                          [1] "Start: 2023-03-08 11:13:16"
+[1] "Stop: 2023-03-08 11:13:22"
+Time difference of 5.802826 secs
+  |                                 |..............           |  54%                                               |                                 |..............           |  55% (unnamed-chunk-11)                          [1] "Start: 2023-03-08 11:13:22"
+[1] "Stop: 2023-03-08 11:13:32"
+Time difference of 10.05922 secs
+  |                                 |..............           |  56%                                              (unnamed-chunk-12)                          [1] "Start: 2023-03-08 11:13:32"
+[1] "Stop: 2023-03-08 11:13:37"
+Time difference of 5.202901 secs
+  |                                 |..............           |  57%                                              (normalisation)                             [1] "Start: 2023-03-08 11:13:37"
+[1] "Stop: 2023-03-08 11:25:00"
+Time difference of 11.38539 mins
+  |                                 |...............          |  58%                                               |                                 |...............          |  59% (update-gene-lists-sct)                     [1] "Start: 2023-03-08 11:25:00"
+[1] "Stop: 2023-03-08 11:25:00"
+Time difference of 0.3817637 secs
+                                               |                                 |...............          |  60% (pca-genes)                                 [1] "Start: 2023-03-08 11:25:00"
+[1] "Stop: 2023-03-08 11:25:00"
+Time difference of 0.008068323 secs
+                                               |                                 |...............          |  61% (pl-pca-loadings)                           [1] "Start: 2023-03-08 11:25:00"
+[1] "Stop: 2023-03-08 11:25:02"
+Time difference of 1.5263 secs
+  |                                 |...............          |  62%                                               |                                 |................         |  62% (pl-pca-heatmap)                            [1] "Start: 2023-03-08 11:25:02"
+[1] "Stop: 2023-03-08 11:25:03"
+Time difference of 1.248313 secs
+  |                                 |................         |  63%                                              (pl-elbow-pca)                              [1] "Start: 2023-03-08 11:25:03"
+[1] "Stop: 2023-03-08 11:25:03"
+Time difference of 0.2884595 secs
+  |                                 |................         |  64%                                               |                                 |................         |  65% (pl-unsupervised)                           [1] "Start: 2023-03-08 11:25:03"
+[1] "Stop: 2023-03-08 11:26:57"
+Time difference of 1.894882 mins
+                                               |                                 |................         |  66% (pl-umap-batch)                             [1] "Start: 2023-03-08 11:26:57"
+[1] "Stop: 2023-03-08 11:27:00"
+Time difference of 3.067496 secs
+  |                                 |.................        |  66%                                               |                                 |.................        |  67% (pl-clustree)                               [1] "Start: 2023-03-08 11:27:00"
+[1] "Stop: 2023-03-08 11:35:54"
+Time difference of 8.902891 mins
+  |                                 |.................        |  68%                                              (clustree-stability)                        [1] "Start: 2023-03-08 11:35:54"
+[1] "Stop: 2023-03-08 11:36:53"
+Time difference of 58.30263 secs
+  |                                 |.................        |  69%                                              (clustree-genes)                            [1] "Start: 2023-03-08 11:36:53"
+[1] "Stop: 2023-03-08 12:04:17"
+Time difference of 54.83551 secs
+  |                                 |..................       |  70%                                               |                                 |..................       |  71% (pl-mrtree)                                 [1] "Start: 2023-03-08 12:04:17"
+[1] "Stop: 2023-03-08 12:46:12"
+Time difference of 41.9283 mins
+                                               |                                 |..................       |  72% (pl-clustering-amri)                        [1] "Start: 2023-03-08 12:46:12"
+[1] "Stop: 2023-03-08 12:46:43"
+Time difference of 30.76711 secs
+                                               |                                 |..................       |  73% (pl-clustering-resolution)                  [1] "Start: 2023-03-08 12:46:43"
+[1] "Stop: 2023-03-08 12:46:44"
+Time difference of 0.942703 secs
+  |                                 |..................       |  74%                                               |                                 |...................      |  74% (select-resolution)                         [1] "Start: 2023-03-08 12:46:44"
+[1] "Stop: 2023-03-08 12:46:44"
+Time difference of 0.07341027 secs
+  |                                 |...................      |  75%                                              (pl-clustering)                             [1] "Start: 2023-03-08 12:46:44"
+[1] "Stop: 2023-03-08 12:46:54"
+Time difference of 9.537699 secs
+  |                                 |...................      |  76%                                               |                                 |...................      |  77% (expression)                                [1] "Start: 2023-03-08 12:46:54"
+[1] "Stop: 2023-03-08 12:48:33"
+Time difference of 3.301621 secs
+                                               |                                 |...................      |  78% (pl-jj-dotplot-sct)                         [1] "Start: 2023-03-08 12:48:33"
+[1] "Stop: 2023-03-08 12:48:35"
+Time difference of 2.368882 secs
+  |                                 |....................     |  78%                                               |                                 |....................     |  79% (pl-jj-dotplot-rna)                         [1] "Start: 2023-03-08 12:48:35"
+[1] "Stop: 2023-03-08 12:48:38"
+Time difference of 2.879359 secs
+  |                                 |....................     |  80%                                              (pl-ajj-dotplot-sct)                        [1] "Start: 2023-03-08 12:48:38"
+[1] "Stop: 2023-03-08 12:48:39"
+Time difference of 1.468572 secs
+  |                                 |....................     |  81%                                              (pl-ajj-dotplot-rna)                        [1] "Start: 2023-03-08 12:48:39"
+[1] "Stop: 2023-03-08 12:48:41"
+Time difference of 2.076002 secs
+  |                                 |.....................    |  82%                                               |                                 |.....................    |  83% (pl-nature-dotplot-sct)                     [1] "Start: 2023-03-08 12:48:41"
+[1] "Stop: 2023-03-08 12:48:43"
+Time difference of 1.799565 secs
+                                               |                                 |.....................    |  84% (pl-nature-dotplot-rna)                     [1] "Start: 2023-03-08 12:48:43"
+[1] "Stop: 2023-03-08 12:48:45"
+Time difference of 2.137393 secs
+                                               |                                 |.....................    |  85% (markers-tables)                            [1] "Start: 2023-03-08 12:48:45"
+[1] "Stop: 2023-03-08 12:48:46"
+Time difference of 0.8017051 secs
+  |                                 |.....................    |  86%                                               |                                 |......................   |  86% (markers-logreg)                            [1] "Start: 2023-03-08 12:48:46"
+[1] "Stop: 2023-03-08 12:55:37"
+Time difference of 6.8396 mins
+  |                                 |......................   |  87%                                              (unnamed-chunk-13)                          [1] "Start: 2023-03-08 12:55:37"
+[1] "Stop: 2023-03-08 13:04:29"
+Time difference of 8.87857 mins
+  |                                 |......................   |  88%                                               |                                 |......................   |  89% (pl-clst-dotplot-logreg)                    [1] "Start: 2023-03-08 13:04:29"
+[1] "Stop: 2023-03-08 13:04:45"
+Time difference of 15.70401 secs
+                                               |                                 |......................   |  90% (pl-heatmap-logreg)                         [1] "Start: 2023-03-08 13:04:45"
+[1] "Stop: 2023-03-08 13:07:02"
+Time difference of 2.277613 mins
+  |                                 |.......................  |  90%                                               |                                 |.......................  |  91% (markers-MAST)                              [1] "Start: 2023-03-08 13:07:02"
+[1] "Stop: 2023-03-08 13:39:54"
+Time difference of 32.86413 mins
+  |                                 |.......................  |  92%                                              (unnamed-chunk-14)                          [1] "Start: 2023-03-08 13:39:54"
+[1] "Stop: 2023-03-08 13:44:53"
+Time difference of 4.997951 mins
+  |                                 |.......................  |  93%                                              (pl-clst-dotplot-MAST)                      [1] "Start: 2023-03-08 13:44:53"
+[1] "Stop: 2023-03-08 13:45:10"
+Time difference of 16.2591 secs
+  |                                 |........................ |  94%                                               |                                 |........................ |  95% (pl-heatmap-MAST)                           [1] "Start: 2023-03-08 13:45:10"
+[1] "Stop: 2023-03-08 13:47:23"
+Time difference of 2.22306 mins
+                                               |                                 |........................ |  96% (parameters)                                [1] "Start: 2023-03-08 13:47:23"
+[1] "Stop: 2023-03-08 13:47:25"
+Time difference of 1.655327 secs
+                                               |                                 |........................ |  97% (save-dataset)                              [1] "Start: 2023-03-08 13:47:25"
+[1] "Stop: 2023-03-08 13:50:32"
+Time difference of 3.124866 mins
+  |                                 |........................ |  98%                                               |                                 |.........................|  98% (output-cells)                              [1] "Start: 2023-03-08 13:50:32"
+[1] "Stop: 2023-03-08 13:50:38"
+Time difference of 6.195855 secs
+  |                                 |.........................|  99%                                              (output)                                    [1] "Start: 2023-03-08 13:50:38"
+[1] "Stop: 2023-03-08 13:50:39"
+Time difference of 0.0801115 secs
+  |                                 |.........................| 100%                                                                                                                                                                                    
+  |                                   |.....................      |  77% (session-info)                            [1] "Start: 2023-03-08 13:50:39"
+[1] "Stop: 2023-03-08 13:50:39"
+Time difference of 0.679265 secs
+  |                                   |.......................    |  85%                                             |                                   |.........................  |  92% (session-info-chunk-inserted-by-workflowr)[1] "Start: 2023-03-08 13:50:39"
+[1] "Stop: 2023-03-08 13:50:39"
+Time difference of 0.07452631 secs
+  |                                   |...........................| 100%                                                                                                                                                                                
+/opt/python/3.8.8/bin/pandoc +RTS -K512m -RTS 01-eda-whole_dataset-nc.knit.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output 01-eda-whole_dataset-nc.html --lua-filter /opt/R/4.2.2/lib/R/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /opt/R/4.2.2/lib/R/library/rmarkdown/rmarkdown/lua/latex-div.lua --variable bs3=TRUE --standalone --section-divs --table-of-contents --toc-depth 3 --variable toc_float=1 --variable toc_selectors=h1,h2,h3 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template /opt/R/4.2.2/lib/R/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --include-before-body /tmp/RtmpOaxKYB/rmarkdown-str37f1b56bfa06c5.html --variable navbar=1 --variable theme=cosmo --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /tmp/RtmpOaxKYB/rmarkdown-str37f1b5fa063fe.html --include-in-header /tmp/RtmpOaxKYB/header37f1b525b188ec.html --include-after-body /tmp/RtmpOaxKYB/footer37f1b550d1a351.html 

@@ -1,0 +1,495 @@
+---
+title: "State change velocity analysis of Ageing Hypothalamus dataset from Hajdarovic KH et al 2022"
+author: "Evgenii O. Tretiakov"
+date: "`r Sys.Date()`"
+format:
+  html:
+    toc: true
+    df-print: paged
+    code-fold: true
+    fig.width: 14
+    fig.height: 12
+execute:
+  keep-md: false
+  echo: true
+  error: false
+  message: false
+  warning: false
+  debug: false
+knitr:
+  opts_chunk:
+    autodep: true
+    fig.align: center
+    tidy: true
+    tidy.opts: list(width.cutoff = 80, width = 80, indent = 2)
+    fig.retina: 2
+---
+
+```{r setup, echo=FALSE, include=FALSE}
+docname <- "velocity-astrocytes_dataset-fpr_0_001"
+now <- Sys.time()
+# Time chunks during knitting
+knitr::knit_hooks$set(timeit = function(before) {
+  if (before) {
+    print(paste("Start:", Sys.time()))
+    NOW <<- Sys.time()
+  } else {
+    print(paste("Stop:", Sys.time()))
+    print(Sys.time() - NOW)
+  }
+})
+
+knitr::knit_hooks$set(debug = function(before, options, envir) {
+  if (!before) {
+    message(
+      paste(names(envir), as.list(envir),
+        sep = " = ", collapse = "\n"
+      )
+    )
+  }
+})
+
+knitr::opts_chunk$set(
+  cache          = FALSE,
+  dev            = c("pdf", "png"),
+  timeit         = TRUE
+)
+Sys.setenv(RETICULATE_PYTHON = "/opt/python/3.8.8/bin/python")
+# Sys.setenv(RETICULATE_PYTHON = "/home/etretiakov/micromamba/bin/python")
+# Load tidyverse infrastructure packages
+suppressPackageStartupMessages({
+  library(future)
+  library(here)
+  library(kableExtra)
+  library(knitr)
+  library(magrittr)
+  library(patchwork)
+  library(RColorBrewer)
+  library(reticulate)
+  library(skimr)
+  library(stringr)
+  library(tidyverse)
+  library(viridis)
+  library(zeallot)
+})
+reticulate::use_condaenv("/opt/python/3.8.8/bin/python")
+# reticulate::use_condaenv("/home/etretiakov/micromamba/bin/python")
+
+suppressPackageStartupMessages({
+  library(anndata)
+  library(gprofiler2)
+  library(scCustomize)
+  library(sceasy)
+  library(Seurat)
+  library(SeuratWrappers)
+  library(SeuratDisk)
+  library(veloviz)
+})
+plt <- import("matplotlib.pyplot")
+ad <- import("anndata", convert = FALSE)
+sc <- import("scanpy", convert = FALSE)
+scv <- import("scvelo")
+cr <- import("cellrank")
+
+# Set paths
+src_dir <- here("code")
+data_dir <- here("data")
+output_dir <- here("output")
+plots_dir <- here(output_dir, "figures")
+tables_dir <- here(output_dir, "tables")
+source(here(src_dir, "genes.R"))
+source(here(src_dir, "functions.R"))
+
+# parallelisation
+n_cores <- 12
+
+# set seed
+reseed <- 42
+set.seed(seed = reseed)
+
+# ggplot2 theme
+theme_set(ggmin::theme_powerpoint())
+```
+
+# Introduction
+
+```{r load_fin_assigned}
+subregions <- "PRJNA779749"
+connectivity_model <- "min_tree"
+metric <- "correlation"
+knn <- 5
+substr_level <- 100
+fpr <- 0.001
+
+subregion_loom <- Connect(filename = here(glue::glue("../data/resolved_subregions/{subregions}-astrocytes_dataset-msp_{connectivity_model}-metric_{metric}-k_{knn}-sign_{substr_level}-amb_{fpr}.loom")), mode = "r")
+
+subregion_srt <- as.Seurat(
+  subregion_loom,
+  features = "var_names",
+  cells = "obs_names"
+)
+subregion_loom$close_all()
+DefaultAssay(subregion_srt) <- "RNA"
+
+subregion_srt <-
+  Store_Palette_Seurat(
+    seurat_object = subregion_srt,
+    palette = rev(brewer.pal(n = 21, name = "Spectral")),
+    palette_name = "expr_Colour_Pal"
+  )
+
+pacmap <- read.delim(here(glue::glue("../data/resolved_subregions/{subregions}-astrocytes_dataset-msp_{connectivity_model}-metric_{metric}-k_{knn}-sign_{substr_level}-amb_{fpr}-pacmap.tsv"))) %>% as.matrix()
+rownames(pacmap) <- pacmap[, 1]
+pacmap <- pacmap[, 2:3]
+colnames(pacmap) <- paste0("PaCMAP_", 1:2)
+subregion_srt[["pacmap"]] <- CreateDimReducObject(embeddings = pacmap, key = "PaCMAP_", assay = DefaultAssay(subregion_srt))
+
+umap <- read.delim(here(glue::glue("../data/resolved_subregions/{subregions}-astrocytes_dataset-msp_{connectivity_model}-metric_{metric}-k_{knn}-sign_{substr_level}-amb_{fpr}-umap.tsv"))) %>% as.matrix()
+rownames(umap) <- umap[, 1]
+umap <- umap[, 2:3]
+colnames(umap) <- paste0("UMAP_", 1:2)
+subregion_srt[["umap"]] <- CreateDimReducObject(embeddings = umap, key = "UMAP_", assay = DefaultAssay(subregion_srt))
+
+subregion_srt$clusters %>% table()
+subregion_srt$clusters <- factor(subregion_srt$clusters)
+Idents(subregion_srt) <- "clusters"
+
+```
+
+
+```{r load_adatas}
+adata1 <- scv$read(here("piscem_spliceu/SRR16922355/SRR16922355.h5ad"))
+adata2 <- scv$read(here("piscem_spliceu/SRR16922356/SRR16922356.h5ad"))
+
+
+# prepare cell names
+cells1 <-
+  adata1$obs_names %>%
+  str_c("SRR16922355_", .) %>%
+  str_c(., "-1")
+adata1$obs_names <- cells1
+adata1$obs$run <- "SRR16922355"
+cells2 <-
+  adata2$obs_names %>%
+  str_c("SRR16922356_", .) %>%
+  str_c(., "-1")
+adata2$obs_names <- cells2
+adata2$obs$run <- "SRR16922356"
+
+# subset cleared astrocytes
+adata1 <- adata1[cells1 %in% colnames(subregion_srt)]
+adata2 <- adata2[cells2 %in% colnames(subregion_srt)]
+adata <- ad$concat(c(adata1, adata2), join = "inner")
+
+# gene and cell names
+genes <- adata$var_names$values
+cells <- adata$obs_names$values
+
+genes_update <- gconvert(
+  py_to_r(genes),
+  organism = "mmusculus",
+  target = "MGI",
+  numeric_ns = "",
+  mthreshold = Inf,
+  filter_na = TRUE
+)
+
+# cell type assignments
+clusters <-
+  subregion_srt@meta.data[
+    py_to_r(cells),
+  ]$clusters
+names(clusters) <- py_to_r(cells)
+adata$obs <-
+  py_to_r(adata$obs) %>%
+  rownames_to_column(var = "cell_name") %>%
+  left_join(
+    y = subregion_srt@meta.data,
+    by = "cell_name"
+  ) %>%
+  r_to_py()
+adata$obs_names <- adata$obs$cell_name
+var_regex <- "^Hla-|^Ig[hjkl]|^Rna|^mt-|^Rp[sl]|^Hb[^(p)]|^Gm"
+adata$var <-
+  py_to_r(adata$var) %>%
+  rownames_to_column(var = "ENSMBL_id") %>%
+  left_join(
+    y = genes_update,
+    by = join_by(ENSMBL_id == input),
+    multiple = "any"
+  ) %>%
+  left_join(
+    y = rownames_to_column(subregion_srt@assays$RNA@meta.features,
+      var = "name"
+    ),
+    by = "name"
+  ) %>%
+  mutate(selected = str_detect(
+    pattern = var_regex,
+    string = name,
+    negate = TRUE
+  )) %>%
+  r_to_py()
+
+adata$var_names <- adata$var$name
+adata <- py_to_r(adata)[, adata$var$selected] %>%
+  r_to_py()
+
+# colors
+col <- rev(plasma(length(levels(clusters))))
+cell.cols <- col[clusters]
+names(cell.cols) <- names(clusters)
+```
+
+```{r}
+## run scvelo dynamic model
+adata$var_names_make_unique()
+scv$pp$filter_genes(adata)
+scv$pp$moments(adata) ## compute moments
+scv$tl$recover_dynamics(adata) ## model
+
+scv$tl$velocity(adata, mode = "dynamical")
+scv$tl$velocity_graph(adata)
+```
+
+
+
+
+
+```{r}
+vel <- py_to_r(adata$layers)[["velocity"]]
+genes <- py_to_r(adata$var_names$values)
+cells <- py_to_r(adata$obs_names$values)
+colnames(vel) <- genes
+rownames(vel) <- cells
+
+genes.embed <- genes.embed %>% .[. %in% genes]
+g.embed <- r_to_py(genes.embed)
+
+vel.genes <- genes[colSums(vel, na.rm = T) > 0]
+vel <- vel[, vel.genes]
+
+# get current
+curr <- py_to_r(adata$X)
+
+colnames(curr) <- genes
+rownames(curr) <- cells
+curr <- as.matrix(curr)[, vel.genes]
+curr <- t(curr)
+
+# compute projected
+proj <- curr + t(vel)
+proj[proj < 0] <- 0
+```
+
+```{r}
+veloviz <- buildVeloviz(
+  curr = curr, proj = proj,
+  normalize.depth = TRUE,
+  use.ods.genes = TRUE,
+  alpha = 0.05,
+  pca = TRUE,
+  nPCs = 10,
+  center = TRUE,
+  scale = TRUE,
+  k = 5,
+  similarity.threshold = 0.05,
+  distance.weight = 2,
+  distance.threshold = 0.8,
+  weighted = TRUE,
+  verbose = FALSE
+)
+```
+
+```{r}
+emb.veloviz <- veloviz$fdg_coords
+
+plotEmbedding(emb.veloviz,
+  colors = cell.cols[rownames(emb.veloviz)], main = "VeloViz with dynamical velocity",
+  xlab = "VeloViz X", ylab = "VeloViz Y",
+  alpha = 0.8,
+  cex.lab = 1.5
+)
+```
+
+```{r}
+a.plot <- adata
+
+# remove unconnected cells from anndata object
+connected.cells <- rownames(emb.veloviz)
+a.plot.vv <- a.plot[a.plot$obs_names$isin(r_to_py(connected.cells))]
+a.plot.vv$obsm$update("X_veloviz1" = r_to_py(emb.veloviz))
+
+# get colors
+plot.cols <- unique(cell.cols)
+c <- unlist(sapply(c(1:length(col)), function(x) {
+  which(plot.cols == col[x])
+}))
+plot.cols <- plot.cols[c]
+```
+
+```{r}
+# plotting params
+pt.size <- 200
+dnsty <- 0.8
+plt.size <- c(5, 5)
+
+
+scv$pl$velocity_embedding_stream(
+  a.plot.vv,
+  basis = "veloviz1",
+  density = dnsty,
+  cutoff_perc = 0,
+  n_neighbors = 15L,
+  smooth = 0.8, min_mass = 4,
+  title = "",
+  legend_fontoutline = 2,
+  size = pt.size,
+  alpha = 0.8,
+  legend_fontsize = 12,
+  linewidth = 2.5,
+  show = TRUE,
+  figsize = plt.size,
+  palette = r_to_py(plot.cols)
+)
+plt$show()
+# plt$savefig("test_dynamic_velocity.pdf")
+```
+
+```{r}
+scv$pl$velocity_embedding_stream(
+  a.plot.vv,
+  basis = "veloviz1",
+  title = "", legend_loc = "none",
+  alpha = .6, legend_fontsize = 12, arrow_color = "darkslategrey",
+  density = .9, linewidth = 3, arrow_size = 5, min_mass = 2, show = TRUE,
+  figsize = plt.size,
+  palette = r_to_py(plot.cols)
+)
+```
+
+```{r}
+scv$pl$velocity_embedding_stream(
+  a.plot.vv,
+  basis = "veloviz1",
+  color = g.embed,
+  legend_loc = "none",
+  alpha = .6, legend_fontsize = 12, arrow_color = "darkslategrey",
+  density = .9, linewidth = 2, arrow_size = 2, min_mass = 2, show = TRUE, palette = "gnuplot2",
+  figsize = plt.size, size = 40,
+  ncols = 4L
+)
+```
+
+
+```{r}
+a.plot.vv$write(here(data_dir, "veloviz.h5ad"))
+```
+```{r}
+cr$tl$terminal_states(a.plot.vv, cluster_key = "clusters", weight_connectivities = 0.2, softmax_scale = 4)
+cr$tl$initial_states(a.plot.vv, cluster_key = "clusters")
+cr$tl$lineages(a.plot.vv)
+```
+
+```{r}
+scv$tl$recover_latent_time(
+  a.plot.vv,
+  root_key = "initial_states_probs",
+  end_key = "terminal_states_probs"
+)
+```
+
+```{r}
+scv$tl$paga(
+  adata = a.plot.vv,
+  groups = "clusters",
+  root_key = "initial_states_probs",
+  end_key = "terminal_states_probs",
+  use_time_prior = "velocity_pseudotime"
+)
+```
+
+```{r}
+cr$tl$lineage_drivers(a.plot.vv)
+```
+
+```{r}
+scv$pl$velocity_embedding(adata, arrow_length = 3, arrow_size = 2, dpi = 120, show = TRUE)
+```
+
+
+```{r}
+scv$pl$velocity(
+  adata,
+  var_names = genes.embed,
+  show = TRUE,
+  ncols = 2L
+)
+```
+
+```{r}
+scv$tl$velocity_confidence(adata)
+keys <- c("velocity_length", "velocity_confidence")
+scv$pl$scatter(adata, c = keys, cmap = "coolwarm", perc = c(5, 95))
+```
+
+
+```{r}
+scv$tl$rank_velocity_genes(adata, groupby = "clusters", min_corr = .3)
+
+df <- scv$DataFrame(adata$uns["rank_velocity_genes"]["names"])
+df$head()
+```
+
+
+```{r}
+model <- cr$ul$models$GAM(a.plot.vv)
+```
+
+```{r}
+cr$pl$circular_projection(
+  a.plot.vv,
+  keys = c(
+    "latent_time",
+    "kl_divergence",
+    genes.embed
+  ),
+  legend_loc = "upper right"
+)
+plt$show()
+```
+
+
+```{r}
+cr$pl$lineage_drivers(adata, lineage = 0L, n_genes = 3)
+```
+
+
+```{r}
+cr$pl$initial_states(a.plot.vv, basis = "veloviz1")
+plt$show()
+```
+
+```{r}
+cr$pl$terminal_states(a.plot.vv, basis = "veloviz1")
+plt$show()
+```
+
+```{r}
+cr$pl$lineages(a.plot.vv, basis = "veloviz1", same_plot = FALSE)
+plt$show()
+```
+
+```{r}
+cr$pl$lineages(a.plot.vv, basis = "veloviz1", same_plot = TRUE)
+plt$show()
+```
+
+```{python}
+from watermark import watermark
+%watermark
+```
+
+```{python}
+%watermark --iversions
+```

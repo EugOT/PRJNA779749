@@ -1,0 +1,4 @@
+  |                                 |                         |   0%  |                                 |                         |   1%                                              (seed-set-by-workflowr)                       |                                 |                         |   2%                                               |                                 |.                        |   2% (setup)                                       |                                 |.                        |   3%                                              (params)                                    [1] "Start: 2023-02-20 19:29:09"
+[1] "Stop: 2023-02-20 19:29:09"
+Time difference of 0.02485991 secs
+  |                                 |.                        |   4%                                              (load)                                      [1] "Start: 2023-02-20 19:29:09"

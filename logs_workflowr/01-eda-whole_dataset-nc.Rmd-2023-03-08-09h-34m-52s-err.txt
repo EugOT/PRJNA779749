@@ -1,0 +1,137 @@
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+System has not been booted with systemd as init system (PID 1). Can't operate.
+Failed to connect to bus: Host is down
+  |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |==============                                                        |  20%  |                                                                              |=====================                                                 |  30%  |                                                                              |============================                                          |  40%  |                                                                              |===================================                                   |  50%  |                                                                              |==========================================                            |  60%  |                                                                              |=================================================                     |  70%  |                                                                              |========================================================              |  80%  |                                                                              |===============================================================       |  90%  |                                                                              |======================================================================| 100%
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+Loading .Rprofile for the current workflowr project
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Calculating gene variances
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Calculating feature variances of standardized and clipped values
+0%   10   20   30   40   50   60   70   80   90   100%
+[----|----|----|----|----|----|----|----|----|----|
+**************************************************|
+Loading .Rprofile for the current workflowr project
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+Loading .Rprofile for the current workflowr project
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Loading .Rprofile for the current workflowr project
+This is workflowr version 1.7.0
+Run ?workflowr for help getting started
+Error in parse_block(g[-1], g[1], params.src, markdown_mode) : 
+  Duplicate chunk label 'load', which has been used for the chunk:
+samples_table <- readr::read_tsv(here("samples.tsv")) %>% arrange(Run)
+srr_set <- samples_table$Run
+scrublet <-
+  purrr::reduce(
+    srr_set %>% map(~read_scrublet(.x, fpr = 0.001)),
+    bind_rows)
+
+# Read in data
+cell_ranger_merged <-
+  Read10X_h5_Multi_Directory(
+    base_path = here("cellranger"),
+    default_10X_path = TRUE,
+    h5_filename = "filtered_feature_bc_matrix.h5",
+    merge = TRUE,
+    sample_names = srr_set
+  )
+
+# Create Seurat Object and specify orig.ident location
+combined_srt <- Seurat::CreateSeuratObject(
+  counts = cell_ranger_merged, names.field = 1, names.delim = "_",
+  min.features = 100, min.cells = 3
+)
+
+combined_srt$cell_name <- colnames(combined_srt)
+combined_srt@meta.data <-
+  combined_srt@meta.data %>%
+  left_join(scrublet,
+    by = c("cell_name",
+      "orig.ident" = "origin")) %>%
+  mutate(QC = ifelse(
+    test = predicted_doublets | doublet_score >= 0.95,
+    yes = "Doublet",
+    no = "Pass"))
+rownames(combined_srt@meta.data) <- colnames(combined_srt)
+
+rm(srt_list)
+plan(sequential)
+invisible(gc())
+options(future.globals.maxSize = 999999 * 1024^2)
+set.seed(seed = reseed)
+plan(multisession, workers = n_cores)
+In addition: Warning messages:
+1: ggrepel: 75 unlabeled data points (too many overlaps). Consider increasing max.overlaps 
+2: ggrepel: 72 unlabeled data points (too many overlaps). Consider increasing max.overlaps 
+3: ggrepel: 10 unlabeled data points (too many overlaps). Consider increasing max.overlaps 
+4: ggrepel: 10 unlabeled data points (too many overlaps). Consider increasing max.overlaps 
